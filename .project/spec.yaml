@@ -4,7 +4,7 @@ meta:
   name: ollama_project
   image: project-ollama_project
   description: "Deploy Ollama within NVIDIA AI Workbench"
-  labels: []
+  labels: ["ollama"]
   createdOn: "2025-03-10T11:26:11Z"
   defaultBranch: main
 layout:
@@ -17,8 +17,8 @@ environment:
     image: nvidia/cuda
     tag: 12.2.2-runtime-ubuntu22.04
     labels:
-      com.nvidia.workbench.name: "CUDA Runtime"
-      com.nvidia.workbench.description: "NVIDIA CUDA 12.2 Runtime on Ubuntu 22.04"
+      com.nvidia.workbench.name: "com.nvidia.workbench.ollama"
+      com.nvidia.workbench.description: "Ollama AI Workbench Environment"
       com.nvidia.workbench.os: "linux"
       com.nvidia.workbench.os-distro: "ubuntu"
       com.nvidia.workbench.os-distro-release: "22.04"
