@@ -1,4 +1,4 @@
-FROM nvidia/cuda:12.2.2-runtime-ubuntu22.04
+FROM nvcr.io/nvidia/cuda:12.2.2-runtime-ubuntu22.04
 
 # Set working directory
 WORKDIR /app
