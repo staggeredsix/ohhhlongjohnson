@@ -2,18 +2,26 @@ specVersion: v2
 specMinorVersion: 1
 meta:
   name: ollama_project
+  image: project-ollama_project
   description: "Deploy Ollama within NVIDIA AI Workbench"
-  author: "mmckeen@nvidia.com"
+  labels: []
   createdOn: "2025-03-10T11:26:11Z"
   defaultBranch: main
 layout:
-  - path: code
+  - path: code/
     type: code
+    storage: git
 environment:
   base:
     registry: nvcr.io
     image: nvidia/cuda
     tag: 12.2.2-runtime-ubuntu22.04
+    labels:
+      com.nvidia.workbench.name: "CUDA Runtime"
+      com.nvidia.workbench.description: "NVIDIA CUDA 12.2 Runtime on Ubuntu 22.04"
+      com.nvidia.workbench.os: "linux"
+      com.nvidia.workbench.os-distro: "ubuntu"
+      com.nvidia.workbench.os-distro-release: "22.04"
   packages:
     apt:
       - curl
@@ -21,9 +29,12 @@ environment:
       - wget
       - ca-certificates
   mounts:
+    - type: project
+      target: /project/
+      description: "Project directory"
     - type: volume
       target: /root/.ollama
-      options: volumeName=ollama_data
+      source: ollama_data
   variables:
     - name: OLLAMA_HOST
       value: "0.0.0.0:11434"
@@ -34,7 +45,7 @@ environment:
   runtime:
     privileged: true
     ipc: host
-    shm_size: 8G
+    shm_size: 8192MB
 execution:
   scripts:
     pre_build: code/start.sh
