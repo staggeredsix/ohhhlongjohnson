@@ -1,0 +1,29 @@
+version: 1
+name: ollama-project
+description: "Deploy Ollama for other AI Workbench projects"
+author: "Your Name"
+
+containers:
+  - name: ollama
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "11434:11434"
+    volumes:
+      - ${WORKBENCH_HOME}/ollama_data:/root/.ollama
+    env:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - OLLAMA_HOST=0.0.0.0:11434
+    runtime:
+      privileged: true
+      ipc: host
+      shm_size: 8G
+
+entrypoint:
+  - bash
+  - ./start.sh
+
+dependencies:
+  - docker
+  - nvidia-container-runtime
